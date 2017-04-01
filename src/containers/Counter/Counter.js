@@ -6,15 +6,16 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { onDecrement, onIncrement } from './counterActions';
+import { selectCounterValueById } from './counterSelector';
 
 class Counter extends Component {
   render() {
-    const { onDecrement, onIncrement, id } = this.props;
+    const { onDecrement, onIncrement, id, value } = this.props;
 
     return (
       <div>
         <button onClick={() => onDecrement(id)}>-</button>
-        <span>1</span>
+        <span>{value}</span>
         <button onClick={() => onIncrement(id)}>+</button>
       </div>
     );
@@ -25,11 +26,12 @@ Counter.propTypes = {
   id: PropTypes.string.isRequired,
   onDecrement: PropTypes.func.isRequired,
   onIncrement: PropTypes.func.isRequired,
+  value: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = () => {
+const mapStateToProps = (state, props) => {
   return {
-
+    value: selectCounterValueById(state, props.id)
   }
 };
 
