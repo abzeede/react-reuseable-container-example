@@ -6,9 +6,12 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Counter id="1"/>
-        <Counter id="2"/>
-        <Counter id="3"/>
+        {
+          [...Array(15).keys()].map((index) => {
+            const id = `counter${index}`;
+            return <Counter key={id} id={id}/>;
+          })
+        }
       </div>
     );
   }
